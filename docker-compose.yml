@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  mesterdoc:
+    image: ${DOCKER_REGISTRY-}mesterdoc
+    container_name: webapp
+    build:
+      context: .
+      dockerfile: mesterdoc/Dockerfile
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on:
+      - appdatabase
+  appdatabase:
+    image: postgres:latest
+    container_name: postdatabase
+    environment:
+        - POSTGRES_DB =cloud
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=MarcoPoloDRW##@12
+    volumes:
+        - ./.containers/products-db:/var/lib/postgresql/data
+    ports:
+        - 5432:5432
+
